@@ -4,6 +4,10 @@ import "dotenv/config";
 import authRoutes from "./routes/authRoutes.js";
 import booksRoutes from "./routes/booksRoutes.js";
 import { connectDb } from "./lib/db.js";
+import job from "./lib/cron.js";
+
+// Start the cron job
+job.start();
 
 const app = express();
 app.use(express.json());
