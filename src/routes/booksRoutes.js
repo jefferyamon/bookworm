@@ -21,7 +21,7 @@ router.post("/", protectRoute, async (req, res) => {
       user: req.user._id,
     });
     await newBook.save();
-    res.status(201).json(newBook);
+    res.status(201).json(newBook.toObject());
   } catch (error) {
     console.log("Error creating book", error);
     res.status(500).json({ message: error.message });
