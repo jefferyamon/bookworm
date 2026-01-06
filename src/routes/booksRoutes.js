@@ -18,7 +18,7 @@ router.post("/", protectRoute, async (req, res) => {
       caption,
       rating,
       image: imageUrl,
-      user: req.user._id,
+      user: req.user._id.toString(),
     });
     const saved = await newBook.save();
     res.status(201).json(saved.toObject());
