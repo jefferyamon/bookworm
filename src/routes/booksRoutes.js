@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/", protectRoute, async (req, res) => {
   try {
     const { title, caption, rating, image } = req.body;
-    if (!image || !caption || !rating || !title) {
+    if (!title || !caption || !rating || !image) {
       return res.status(400).json({ message: "Please provide all fields." });
     }
     const uploadResponse = await cloudinary.uploader.upload(image);
@@ -18,10 +18,10 @@ router.post("/", protectRoute, async (req, res) => {
       caption,
       rating,
       image: imageUrl,
-      user: req.user._id.toString(),
+      user: req.user._id,
     });
-    const saved = await newBook.save();
-    res.status(201).json(saved.toObject());
+    await newBook.save();
+    res.status(201).json(newBook);
   } catch (error) {
     console.log("Error creating book", error);
     res.status(500).json({ message: error.message });
