@@ -20,8 +20,8 @@ router.post("/", protectRoute, async (req, res) => {
       image: imageUrl,
       user: req.user._id,
     });
-    await newBook.save();
-    res.status(201).json(newBook);
+    const saved = await newBook.save();
+    res.status(201).json(saved.toObject());
   } catch (error) {
     console.log("Error creating book", error);
     res.status(500).json({ message: error.message });
